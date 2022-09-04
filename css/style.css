@@ -9910,3 +9910,29 @@ h4, h5, h6 {
   padding: 0;
   list-style-type: none;
 }
+
+.services {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.service-item img {
+  width: 100%;
+  overflow: hidden;
+}
+
+.service-item .down-content {
+  background-color: #f7f7f7;
+  padding: 30px;
+}
+
+.service-item .down-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.25px;
+  margin-bottom: 15px;
+}
+
+.service-item .down-content p {
+  margin-bottom: 20px;
+}
