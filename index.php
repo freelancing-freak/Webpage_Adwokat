@@ -30,6 +30,54 @@
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/cookies.css">
 
+    <?php
+
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phoneNumber = $_POST['phoneNumber'];
+    $message = $_POST['message'];
+
+    $_SESSION['name'] = $name;
+    $_SESSION['email'] = $email;
+    $_SESSION['phoneNumber'] = $phoneNumber;
+    $_SESSION['message'] = $message;
+
+    $isFormValid = true;
+
+    if (empty($name) || empty($email) || empty($phoneNumber) || empty($message)) {
+        $isFormValid = false;
+    }
+
+    if ($isFormValid) {
+        if (!($_SERVER['REQUEST_METHOD'] === "POST")) header('Location: https://adwokatlublin.info.pl');
+        $to = 'robert.krzywina@gmail.com';
+
+        $headers = "From: " . "adwokatlublin.info.pl" . "\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+        $parts = parse_url("https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+        parse_str($parts['query'], $query);
+
+        $msg = '';
+        $msg .= '<b>Imię:</b> ' . $name . '<br>'
+            . '<b>Email:</b> ' . $email . '<br>'
+            . '<b>Numer telefonu:</b> ' . $phoneNumber . '<br>'
+            . '<b>Wiadomość:</b> ' . $message;
+
+        $result = mail($to, '=?utf-8?B?' . base64_encode('Porada online') . '?=', $msg, $headers);
+
+        if ($result) {
+            $_SESSION['name'] = null;
+            $_SESSION['email'] = null;
+            $_SESSION['phoneNumber'] = null;
+            $_SESSION['message'] = null;
+            $_SESSION['successMessage'] = '';
+        }
+    }
+
+    ?>
+
 </head>
 
 <body>
@@ -215,27 +263,77 @@
                 <div class="col-lg-12 mt-4 mt-lg-0">
                     <h6 class="text-uppercase">Porada online</h6>
                     <p><b>Jeśli jesteś zainteresowany uzyskaniem pomocy prawnej w szybkiej i taniej formie, skorzystaj z formularza znajdującego się na niniejszej stronie. Koszt porady prawnej od 50 zł.</b></p>
-                    <p>Porada On-line służy do udzielania porad prawnych, sporządzania dokumentów prawnych takich jak: pozwy, apelacje, wnioski, podania, umowy, wypowiedzenia, oświadczenia woli, zapytania ofertowe, itp.</p>
+                    <p id="after-form-submit">Porada On-line służy do udzielania porad prawnych, sporządzania dokumentów prawnych takich jak: pozwy, apelacje, wnioski, podania, umowy, wypowiedzenia, oświadczenia woli, zapytania ofertowe, itp.</p>
                 </div>
             </div>
             <div class="row h-100 align-items-center">
                 <div class="col-lg-12">
                     <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
-                        <form>
+                        <style>
+                            #error-message {
+                                color: red;
+                                display: none;
+                                border: 1px solid red;
+                                text-align: center;
+                                padding: 15px;
+                                font-weight: 600;
+                                margin-bottom: 15px;
+                            }
+                            .validation {
+                                color: red;
+                                display: none;
+                                margin: 0 0 20px;
+                                font-weight: 400;
+                                font-size: 13px;
+                            }
+                        </style>
+                        <form method="post" role="form" id="form" class="contactForm">
+                            <?php
+                            if (isset($_SESSION['successMessage'])) {
+                                echo '<div class="alert alert-success" role="alert">' . 'Twoja wiadomość została wysłana!' . '</div>';
+                                unset($_SESSION['successMessage']);
+                            }
+                            ?>
+                            <div id="error-message"></div>
                             <div class="form-group">
-                                <input type="text" class="form-control border-0 p-4" placeholder="Imię i nazwisko" required/>
+                                <input type="text" class="form-control border-0 p-4" placeholder="Imię i nazwisko" id="name" data-rule="required" data-msg="To pole nie może być puste" value="<?php
+                                if (isset($_SESSION['name'])) {
+                                    echo $_SESSION['name'];
+                                    unset($_SESSION['name']);
+                                }
+                                ?>" name="name"/>
+                                <div class="validation"></div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control border-0 p-4" placeholder="Adres email" required/>
+                                <input type="text" class="form-control border-0 p-4" placeholder="Adres email" id="email" data-rule="email" data-msg="Proszę wpisać poprawny adres email" value="<?php
+                                if (isset($_SESSION['email'])) {
+                                    echo $_SESSION['email'];
+                                    unset($_SESSION['email']);
+                                }
+                                ?>" name="email"/>
+                                <div class="validation"></div>
                             </div>
                             <div class="form-group">
-                                <input type="tel" class="form-control border-0 p-4" placeholder="Numer telefonu"/>
+                                <input type="text" class="form-control border-0 p-4" placeholder="Numer telefonu" id="phoneNumber" data-rule="required" data-msg="To pole nie może być puste" value="<?php
+                                if (isset($_SESSION['phoneNumber'])) {
+                                    echo $_SESSION['phoneNumber'];
+                                    unset($_SESSION['phoneNumber']);
+                                }
+                                ?>" name="phoneNumber"/>
+                                <div class="validation"></div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control border-0 p-4" rows="5" placeholder="Wiadomość" required></textarea>
+                                <textarea class="form-control border-0 p-4" rows="5" placeholder="Wiadomość" data-rule="required" data-msg="To pole nie może być puste" style="resize: none;" value="<?php
+                                if (isset($_SESSION['message'])) {
+                                    echo $_SESSION['message'];
+                                    unset($_SESSION['message']);
+                                }
+                                ?>" name="message"></textarea>
+                                <div class="validation"></div>
                             </div>
+                            <p style="color: white">Wysyłając formularz zaponza <a href="docs/regulations.pdf">regulamin</a></p>
                             <div>
-                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Wyślij</button>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit" id="submit-button" onclick="window.location.href='#after-form-submit'">Wyślij</button>
                             </div>
                         </form>
                     </div>
@@ -339,6 +437,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/cookies.js"></script>
+    <script src="js/contact-form.js"></script>
 </body>
 
 </html>
