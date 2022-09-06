@@ -215,25 +215,3 @@ h4, h5, h6 {
     padding: 0;
     list-style-type: none;
 }
-
-#online-advice .form #error-message {
-    color: red;
-    display: none;
-    border: 1px solid red;
-    text-align: center;
-    padding: 15px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-#online-advice .form #send-message.show, #online-advice .form #error-message.show, #online-advice .form .show {
-    display: block;
-}
-
-#online-advice .form .validation {
-    color: red;
-    display: none;
-    margin: 0 0 20px;
-    font-weight: 400;
-    font-size: 13px;
-}

@@ -9842,69 +9842,6 @@ h4, h5, h6 {
   font-size: 22px;
 }
 
-.team-img .team-social {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(55, 55, 63, 0.7);
-  transition: .5s;
-  z-index: 1;
-  opacity: 0;
-}
-
-.team-item:hover .team-social {
-  opacity: 1;
-}
-
-.testimonial-text::after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 0;
-  bottom: -24px;
-  left: 28px;
-  border: 12px solid;
-  border-color: #37373F transparent transparent transparent;
-  z-index: 1;
-}
-
-.testimonial-carousel .owl-dots {
-  position: absolute;
-  width: 100%;
-  top: -50px;
-  text-align: center;
-}
-
-.testimonial-carousel .owl-dot {
-  position: relative;
-  display: inline-block;
-  margin: 0 8px;
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  background: #B49C73;
-}
-
-.testimonial-carousel .owl-dot::after {
-  position: absolute;
-  content: "";
-  top: -5px;
-  right: -5px;
-  bottom: -5px;
-  left: -5px;
-  border: 2px solid #B49C73;
-  border-radius: 20px;
-}
-
-.testimonial-carousel .owl-dot.active {
-  background: #343a40;
-}
-
 .contact-form .help-block ul {
   margin: 0;
   padding: 0;
