@@ -31,6 +31,8 @@
 
     <?php
 
+    use PHPMailer\PHPMailer\PHPMailer;
+
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phoneNumber = $_POST['phoneNumber'];
@@ -48,25 +50,45 @@
     }
 
     if ($isFormValid) {
-        if (!($_SERVER['REQUEST_METHOD'] === "POST")) header('Location: https://adwokatlublin.info.pl');
-        $to = 'adwokat.lublin@o2.pl';
 
-        $headers = "From: " . "adwokatlublin.info.pl" . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-        $parts = parse_url("https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-        parse_str($parts['query'], $query);
-
-        $msg = '';
-        $msg .= '<b>Imię:</b> ' . $name . '<br>'
+        $site = "adwokatlublin.info.pl";
+        $to = "adwokat.lublin@o2.pl";
+        $subject = "Porada online";
+        $body = '';
+        $body .= '<b>Imię:</b> ' . $name . '<br>'
             . '<b>Email:</b> ' . $email . '<br>'
             . '<b>Numer telefonu:</b> ' . $phoneNumber . '<br>'
             . '<b>Wiadomość:</b> ' . $message;
+        $from = "no-reply@adwokatlublin.info.pl";
+        $password = "ub6?1j6wjv1UlLLmv";
 
-        $result = mail($to, '=?utf-8?B?' . base64_encode('Porada online') . '?=', $msg, $headers);
+        require_once "PHPMailer/PHPMailer.php";
+        require_once "PHPMailer/SMTP.php";
+        require_once "PHPMailer/Exception.php";
+        $mail = new PHPMailer();
 
-        if ($result) {
+        $mail->isSMTP();
+        $mail->Host = "mail.adwokatlublin.info.pl";
+        $mail->CharSet = 'UTF-8';
+        $mail->SMTPAuth = true;
+        $mail->Username = $from;
+        $mail->Password = $password;
+        $mail->Port = 465;
+        $mail->SMTPSecure = "ssl";
+        $mail->smtpConnect([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
+
+        $mail->isHTML(true);
+        $mail->setFrom($from, $site);
+        $mail->addAddress($to);
+        $mail->Subject = ("$subject");
+        $mail->Body = $body;
+        if ($mail->send()) {
             $_SESSION['name'] = null;
             $_SESSION['email'] = null;
             $_SESSION['phoneNumber'] = null;
@@ -74,7 +96,6 @@
             $_SESSION['successMessage'] = '';
         }
     }
-
     ?>
 
 </head>
@@ -357,7 +378,7 @@
                             akceptuję wszystkie zawarte w nim warunki</p>
                         <div>
                             <button class="btn btn-primary btn-block border-0 py-3" type="submit" id="submit-button"
-                                    onclick="window.location.href='#after-form-submit'">Wyślij
+                                    onclick="window.location.href='https://adwokatlublin.info.pl/index.php#after-form-submit'">Wyślij
                             </button>
                         </div>
                     </form>
