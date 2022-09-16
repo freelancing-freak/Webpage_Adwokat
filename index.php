@@ -49,7 +49,7 @@
 
     if ($isFormValid) {
         if (!($_SERVER['REQUEST_METHOD'] === "POST")) header('Location: https://adwokatlublin.info.pl');
-        $to = 'robert.krzywina@gmail.com';
+        $to = 'adwokat.lublin@o2.pl';
 
         $headers = "From: " . "adwokatlublin.info.pl" . "\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
@@ -397,7 +397,7 @@
             <div class="d-flex p-4">
                 <div>
                     <h5 class="text-white">ul. 3 Maja 20/2A , 20-078 Lublin</h5>
-                    <p class="m-0">Godziny pracy od poniedziałek do piątku w godzinach 9 - 16</p>
+                    <p class="m-0">Godziny pracy od poniedziałku do piątku w godzinach 9 - 16</p>
                     <br>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2497.3528540176326!2d22.55602421576049!3d51.24941227959358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472257680bf6fc57%3A0xfedc342f557d0cc0!2s3%20Maja%2C%2020-000%20Lublin!5e0!3m2!1spl!2spl!4v1582535621342!5m2!1spl!2spl"
                             width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
@@ -416,7 +416,7 @@
             <div class="d-flex p-4">
                 <div>
                     <h5 class="text-white">ul. Stefana Kardynała Wyszyńskiego 3B/2, 21-300 Radzyń Podlaski</h5>
-                    <p class="m-0">Godziny pracy od poniedziałek do piątku w godzinach 9 - 15</p>
+                    <p class="m-0">Godziny pracy od poniedziałku do piątku w godzinach 9 - 15</p>
                     <br>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2468.459526123798!2d22.604845715780048!3d51.7794870796808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4722193890b91d79%3A0x3d5f251f357be4c3!2sStefana+Kardyna%C5%82a+Wyszy%C5%84skiego+3A%2C+Radzy%C5%84+Podlaski!5e0!3m2!1spl!2spl!4v1467299428173"
                             width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
